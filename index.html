@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Book Filghts for Your Journey</title>
+  <!-- Jquery -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+
+  <link rel="shortcut icon" href="title.png" type="img/png">
+  <link href="https://fonts.googleapis.com/css?family=Aref+Ruqaa" rel="stylesheet">
+
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link href="https://fonts.googleapis.com/css?family= Anton" rel="stylesheet">
+
+  <!-- Optional theme -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+  <!-- Latest compiled and minified JavaScript -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <!-- For Date pick -->
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"/>
+  <script src="register.js"></script>
+
+  <script type="text/javascript">
+    $(function () {
+      $('#divDepartureDate').datepicker();
+      $('#divArrivalDate').datepicker({
+            useCurrent: false //Important! See issue #1075
+          });
+      $('#divDateOfBirth').datepicker({
+            useCurrent: false //Important! See issue #1075
+          });
+    });
+
+    function validatePassword() {
+      var password_js = document.getElementById("password"),
+      confirm_password = document.getElementById("password_confirmation");
+      alert("ajinkya wakjale");
+
+      if (password_js.value != confirm_password.value) {
+        confirm_password.setCustomValidity("Passwords Don't Match");
+      } else {
+        confirm_password.setCustomValidity('');
+      }
+    }
+
+  </script>
+  <style type="text/css">
+
+    body{
+    	background-image: url("background.jpg");
+      background-repeat: no-repeat;
+      background-size: cover;
+    }
+    #search{
+      width: 400px;
+      border-radius: 5px;
+      background-color: #f2f2f2;
+      padding: 20px;
+
+
+    }
+
+  </style>
+</head>
+
+<body ng-app="myApp" ng-controller="myCtrl" onload="check()">
+
+  <!-- Navigation Bar open -->
+
+  <nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+
+      <!-- Brand and toggle get grouped for better mobile display -->
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="index.html">GoAir</a>
+      </div>
+
+
+      <!-- Collect the nav links, forms, and other content for toggling -->
+      <div  class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav">
+          <li class="active"><a href="index.html">Home <span class="sr-only">(current)</span></a></li>
+          <li><a href="aboutus.html">About US</a></li>
+
+
+          <li><button id="signupButton" type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#registerModal">Sign Up</button></li>
+
+
+
+
+          <!-- Register Dialog Open -->
+          <div class="modal fade" id="registerModal" tabindex="-1" role="dialog"  aria-labelledby="basicModal" aria-hidden="true">
+           <div class="modal-dialog">
+            <div class="modal-content">
+
+             <div class="modal-header">
+               <button  type="button" class="close" data-dismiss="modal" data-backdrop = "static" aria-hidden="true"></button>
+               <h4 class="modal-title" id="myModalLabel">Please sign Up to book tickets</h4>
+             </div>
+
+             <div class="modal-body">
+
+               <!--Panel start -->
+
+               <div class="panel-body" id="registerModal">
+
+                <!--From Start -->
+                <form role="registerForm" id="registerForm" ng-submit="submitMyForm()">
+
+                  <!--First Name Input -->
+                  <div class="row">
+                    <div class="col-md-4">
+                      <div class="form-group">
+                        <input type="text" name="first_name" id="first_name" class="form-control input-sm" placeholder="First Name" ng-model="fields.first_name" required>
+                      </div>
+                    </div>
+
+                    <div class="col-md-3">
+                      <div class="form-group">
+                        <input type="text" name="middle_name" id="Middle_name" class="form-control input-sm" placeholder="Middle Name" ng-model="fields.middle_name">
+                      </div>
+                    </div>
+
+                    <div class="col-md-3">
+                      <div class="form-group">
+                        <input type="text" name="last_name" id="last_name" class="form-control input-sm" placeholder="Last Name" ng-model="fields.last_name" required>
+                      </div>
+                    </div>
+
+                  </div>
+                  <!--First row closed -->
+
+                  <div class="row">
+                    <div class="col-md-6">
+                      <!-- Email & Password input -->
+                      <div class="form-group">
+                        <input type="email" name="email" id="email" class="form-control input-sm" placeholder="Email Address" ng-model="fields.email" required>
+                      </div>
+                    </div>
+                  </div>
+                  <!--Second row closed -->
+
+
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <input type="password" name="password" id="password" class="form-control input-sm" placeholder="Password" ng-model="fields.password" required>
+                      </div>
+                    </div>
+
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <input type="password" name="password_confirmation" id="password_confirmation" class="form-control input-sm" placeholder="Confirm Password" required>
+                      </div>
+                    </div>
+
+                  </div>
+
+                  <!--Third row closed-->
+
+
+                  <!-- Gender Input -->
+                  <div class="row">
+                    <div class="col-md-2">
+                      <div class="form-group">
+                        <input class="form-check-input"  type="radio" name="gender" value="M" ng-model="fields.gender" checked="true"
+                        <label class=".control-label" style=" font-family: 'Anton', sans-serif;">Male</label>
+                      </div>
+                    </div>
+
+                    <div class="col-md-2">
+                      <div class="form-group">
+                        <input class="form-check-input" type="radio" name="gender" value="F" ng-model="fields.gender">
+                        <label class=".control-label" style=" font-family: 'Anton', sans-serif;">Female</label>
+                      </div>
+                    </div>
+                  </div>
+                  <!--Fourth row closed -->
+
+
+                  <!--Phone Number Input -->
+                  <div class="row">
+                    <div class="col-md-4">
+                      <div class="form-group">
+                        <input type="text" name="phone_number" id="phoneNumber" class="form-control input-sm" placeholder="Phone Number" ng-model="fields.phone_primary" required> 
+                      </div>
+                    </div>
+                  </div>
+                  <!--Fifth row closed -->
+                  <br>
+
+                  <!--Date of Birth Input -->
+                  <div class="row">
+                    <div class="col-md-4">
+                      <div class="form-group">
+                        <input type="text" name="age" id="age" class="form-control input-sm" placeholder="Age" ng-model="fields.age"> 
+                      </div> 
+                    </div>
+                  </div>  
+                  <!--Sixth row closed -->
+                  <br>
+                  <div class="row">
+                    <div class="col-md-6 col-md-offset-3">
+                      <input type="submit" value="Register" class="btn btn-info btn-block" >
+                    </div>
+                  </div>
+                  <div class="alert alert-success" style="display: none;">
+                    <strong>Success!</strong> This alert box could indicate a successful or positive action.
+                  </div>
+
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Reigster Dialog closed -->
+    </ul>
+
+    <form id="signInForm" class="navbar-form navbar-right" role="form">
+
+      <div class="input-group" id="loginDiv">
+        <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+        <input id="loginName" type="email" class="form-control" name="email" value="" placeholder="Email Address">                                        
+      </div>
+
+      <div class="input-group" id="passwordDiv">
+        <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+        <input id="loginPassword" type="password" class="form-control" name="password" value="" placeholder="Password">                                        
+      </div>
+      <button type="button" id="loginbutton" class="btn btn-primary">Login</button>
+
+      <button style="display: none;"  id="manageButton" type="button" class="btn btn-info" data-toggle="modal" data-target="#manageModal">Manage Bookings</button>
+
+      <!-- Manage dialog  -->
+
+      <div class="modal fade" id="manageModal" tabindex="-1" role="dialog"  aria-labelledby="basicModal" aria-hidden="true">
+       <div class="modal-dialog">
+        <div class="modal-content">
+
+         <div class="modal-header">
+           <button type="button"  class="close" data-dismiss="modal" data-backdrop = "static" aria-hidden="true"></button>
+           <h4 class="modal-title" id="myModalLabel">Manage/Edit your details</h4>
+         </div>
+
+         <div class="modal-body">
+
+           <!--Panel1 -->
+           <div class="panel panel-default">
+             <div class="panel-heading">
+              Bookings 
+            </div>
+            <div class="panel-body">
+             <a href="Booking.html">Your Bookings</a>
+           </div>
+         </div>
+
+         <!--Panel 2 -->
+         <div class="panel panel-default">
+           <div class="panel-heading">
+             User Support
+           </div>
+           <div class="panel-body">
+             <a href="manageUsers.html">Your Personal details</a>
+           </div>
+         </div>
+
+       </div>
+       <!--Modal body closed -->
+     </div>
+   </div>
+ </div>
+ <button style="display: none;""  id="logOutButton" type="button" class="btn btn-info">Log Out</button>
+ 
+</form>
+</div>
+</div>
+</nav>
+
+
+<!-- Navigation bar closed -->
+
+
+
+
+<!---search form -->
+<div class="container-fluid">
+  <div class="row">
+    <div class= "col-md-12">
+
+      <form id="search" method="POST" action="Results.html" ng-submit="submitMySearchForm()">
+        <h4 align="center" style="font-family: 'Anton', sans-serif;"> Plan Your Travel</h4>
+        <datalist id="suggestions">
+          <option value="Baltimore,US(BWI)"></option>
+          <option value="London,UK(LHR)"></option>
+          <option value="Mumbai,India(BOM)"></option>
+          <option value="Newyork,US(JFK)"></option>
+          <option value="LosAngeles,US(LAX)"></option>
+          <option value="Washington,US(IAD)"></option>
+          <option value="Bangalore,India(BLR)"></option>
+          <option value="Boston(BOS)"></option>
+          <option value="Dubai(DIA)"></option>
+        </datalist>
+        
+        <div class="form-group">
+          <label class=".control-label">From</label>
+          <input ng-model= "fields1.departureCity_model" type="text" name="departureCity" id="dCity" list = "suggestions" autofocus="on" class="form-control">
+        </div>
+
+        <div class="form-group">
+
+          <input class="form-check-input" ng-model= "fields1.type_model" onclick="document.getElementById('returnDate').disabled = true" type="radio" name="type" value="One Way" checked>
+          <label class=".control-label">One-Way</label>
+          <input class="form-check-input" ng-model= "fields1.type_model" onclick="document.getElementById('returnDate').disabled = false" type="radio" name="type" value="Return">
+          <label class=".control-label">Return</label>
+        </div>
+
+        <div class="form-group">
+          <div class= "input-group date" id="divDepartureDate" >
+            <input ng-model= "fields1.departure_date_model" type= "text" class="form-control" placeholder="Departure Date" id="departureDate"/>
+            <span class="input-group-addon">
+              <span class="glyphicon glyphicon-calendar"></span>
+            </span>
+          </div>
+          <div class="form-group">
+            
+            <div class= "input-group date" id ="divArrivalDate">
+              <input ng-model= "fields1.arrival_date_model" type= "text" class="form-control" placeholder="Arrival Date" disabled="true" id="returnDate" />
+              <span class="input-group-addon">
+                <span class="glyphicon glyphicon-calendar"></span>
+              </span>
+            </div>
+
+          </div>
+
+          <div class="form-group">
+            <label class=".control-label">To</label>
+            <input ng-model= "fields1.arrivalCity_model" type="text" name= "arrivalCity" id="aCity" list="suggestions" class="form-control">
+          </div>
+
+          <div class="form-group" >
+            <label class=".control-label">Adults</label>
+            <select ng-model= "fields1.number_of_passengers_model" class="form-control" id="passengerNum">
+              <option>1</option>
+              <option>2</option>
+              <option>3</option>
+              <option>4</option>
+              <option>5</option>
+            </select>
+          </div>
+
+          <div class="form-group" >
+            <label class=".control-label">Class</label>
+            <select ng-model= "fields1.class_model" class="form-control" id="class">
+              <option>Economy</option>
+              <option>Business</option>
+              <option>Premium</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <input type="submit" value="Find Flights" class="btn btn-info btn-block">
+          </div>
+
+
+        </form>
+      </div>                                		
+    </body>
+    </html>

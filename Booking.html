@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Your Booking</title>
+  <!-- Jquery -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+
+  <link rel="shortcut icon" href="title.png" type="img/png">
+  
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link href="https://fonts.googleapis.com/css?family=Aref+Ruqaa" rel="stylesheet">
+
+  <!-- Optional theme -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+  <!-- Latest compiled and minified JavaScript -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <!-- For Date pick -->
+  <script src = "booking.js">
+
+  </script>
+
+</style>
+</head>
+
+<body ng-app = "myAppBooking" ng-controller = "myCtrlBooking">
+
+  <!-- Navigation Bar open -->
+
+  <nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+
+      <!-- Brand and toggle get grouped for better mobile display -->
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="index.html">GoAir</a>
+      </div>
+
+
+      <!-- Collect the nav links, forms, and other content for toggling -->
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav">
+          <li class="active"><a href="index.html">Home <span class="sr-only">(current)</span></a></li>
+          <li><a href="aboutus.html">About US</a></li>
+          
+</ul>
+<form id="signInForm" class="navbar-form navbar-right" role="form">
+
+ <button style="display: none;"  id="manageButton" type="button" class="btn btn-info" data-toggle="modal" data-target="#manageModal">Manage Bookings</button>
+          
+          <!-- Manage dialog  -->
+
+          <div class="modal fade" id="manageModal" tabindex="-1" role="dialog"  aria-labelledby="basicModal" aria-hidden="true">
+           <div class="modal-dialog">
+            <div class="modal-content">
+
+             <div class="modal-header">
+               <button type="button"  class="close" data-dismiss="modal" data-backdrop = "static" aria-hidden="true"></button>
+               <h4 class="modal-title" id="myModalLabel">Manage/Edit your details</h4>
+             </div>
+
+             <div class="modal-body">
+
+               <!--Panel1 -->
+               <div class="panel panel-default">
+                 <div class="panel-heading">
+                  Bookings 
+                </div>
+                <div class="panel-body">
+                 <a href="Booking.html">Your Bookings</a>
+               </div>
+             </div>
+             
+             <!--Panel 2 -->
+             <div class="panel panel-default">
+               <div class="panel-heading">
+                 User Support
+               </div>
+               <div class="panel-body">
+                 <a href="manageUsers.html">Your Personal details</a>
+               </div>
+             </div>
+
+           </div>
+           <!--Modal body closed -->
+         </div>
+       </div>
+     </div>
+        <button id="logOutButton" type="button" class="btn btn-info">Log Out</button>
+
+</form>
+
+</div><!-- /.navbar-collapse -->
+</div><!-- /.container-fluid -->
+</nav>  
+
+<!-- Navigation bar closed -->
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="well" style="font-family: 'Aref Ruqaa', serif;">
+        Your Booking history
+      </div>
+    </div>
+    <div class="col-md-12">
+      <table class="table table-bordered" style=" font-family: 'Aref Ruqaa', serif; font-size:20px;">
+        <thead>
+          <tr style="font-size: 24px">
+            <th><strong>Booking ID</strong></th>
+            <th>Type of Travel</th>
+            <th>Payment status</th>
+            <th>Amount</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat = "x in myData" >
+           <td> <a href="manageBooking.html">{{x.bookingId}}</a></td>
+           <td>{{x.Type}}</td>
+           <td>{{x.Type}}</td>
+           <td>{{x.Type}}</td> 
+         </tr>
+       </tbody> 
+     </table>
+   </div>
+ </div>
+</div>
+
+</body>
+</html>
