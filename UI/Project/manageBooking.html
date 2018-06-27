@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Booking Details</title>
+  <!-- Jquery -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+
+  <link rel="shortcut icon" href="title.png" type="img/png">
+  <link href="https://fonts.googleapis.com/css?family=Aref+Ruqaa" rel="stylesheet">
+
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link href="https://fonts.googleapis.com/css?family= Anton" rel="stylesheet">
+
+  <!-- Optional theme -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+  <!-- Latest compiled and minified JavaScript -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <!-- For Date pick -->
+  <link href="https://fonts.googleapis.com/css?family=Libre+Baskerville" rel="stylesheet">
+  <script src="managebooking.js"></script>
+    <script src="moment.js"></script>
+
+  <script type="text/javascript">
+
+  </script>
+  <style type="text/css">
+    #refine{
+      position: fixed;
+      background-color: SlateGray; 
+      width: 200px;
+
+
+    }
+
+
+
+
+  </style>
+</head>
+
+<body ng-app = "manageApp" ng-controller="manageController">
+  <!-- Navigation Bar open -->
+
+  <nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+
+      <!-- Brand and toggle get grouped for better mobile display -->
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="index.html">GoAir</a>
+      </div>
+
+
+      <!-- Collect the nav links, forms, and other content for toggling -->
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav">
+          <li class="active"><a href="index.html">Home <span class="sr-only">(current)</span></a></li>
+          <li><a href="aboutus.html">About US</a></li>
+        </ul>
+
+        <!-- Right side navigation bar -->
+        <form id="signInForm" class="navbar-form navbar-right" role="form">
+
+
+          <button   id="manageButton" type="button" class="btn btn-info" data-toggle="modal" data-target="#manageModal">Manage Bookings</button>
+
+          <!-- Manage dialog  -->
+
+          <div class="modal fade" id="manageModal" tabindex="-1" role="dialog"  aria-labelledby="basicModal" aria-hidden="true">
+           <div class="modal-dialog">
+            <div class="modal-content">
+
+             <div class="modal-header">
+               <button type="button"  class="close" data-dismiss="modal" data-backdrop = "static" aria-hidden="true"></button>
+               <h4 class="modal-title" id="myModalLabel">Manage/Edit your details</h4>
+             </div>
+
+             <div class="modal-body">
+
+               <!--Panel1 -->
+               <div class="panel panel-default">
+                 <div class="panel-heading">
+                  Bookings 
+                </div>
+                <div class="panel-body">
+                 <a href="Booking.html">Your Bookings</a>
+               </div>
+             </div>
+
+             <!--Panel 2 -->
+             <div class="panel panel-default">
+               <div class="panel-heading">
+                 User Support
+               </div>
+               <div class="panel-body">
+                 <a href="manageUsers.html">Your Personal details</a>
+               </div>
+             </div>
+
+           </div>
+           <!--Modal body closed -->
+         </div>
+       </div>
+     </div>
+     <button id="logOutButton" type="button" class="btn btn-info">Log Out</button>
+
+   </form>
+ </div><!-- /.navbar-collapse -->
+</div><!-- /.container-fluid -->
+</nav>  
+
+<!-- Navigation bar closed -->
+
+
+<!--Manage Booking started -->
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="panel panel-default">
+        <div class="panel-heading" style=" font-family: 'Aref Ruqaa', serif; font-size:20px;">Trip to 
+        <span ng-model="manage_booking_arrival_city">{{manage_booking_arrival_city}}</span></div>
+        <div class="panel-body">Booking Id: 
+        <span ng-model = "booking_id_model">{{booking_id_model}}</div> 
+      </div>  
+    </div>
+  </div>
+</div>
+
+<!--Trip Information -->
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="panel panel-default">
+        <div class="panel-heading" style=" font-family: 'Aref Ruqaa', serif; font-size:20px;">Trip Information</div>
+        <div class="panel-body">
+          <!--First Row -->
+          
+          <br>
+          <br>
+          <!--Second Row Start-->
+          <div class="row">
+            <div class="col-md-3">
+              <span>From:
+              <span ng-model = "manage_booking_departure_city"> {{manage_booking_departure_city}} </span>
+               to
+               <span ng-model = "manage_booking_arrival_city" >{{manage_booking_arrival_city}}</span>  
+            </div>  
+            <div class="col-md-3">
+              <span>Departure Date:</span>
+               <span ng-model = "manage_booking_departure_date">{{manage_booking_departure_date}}</span>  
+            </div>  
+            <div class="col-md-3">
+              Type of Journey : 
+              <span ng-model = "manage_booking_type_journey">{{manage_booking_type_journey}}</span>
+            </div>  
+            <div class="col-md-3">
+              <button ng-click= "cancelBooking()" type="submit" value="Booking Cancel" class="btn btn-primary">Cancel Booking</button>              
+            </div>
+
+          </div>
+
+          <!--Second Row closed -->
+        </div>
+        <!--Panel body Closed -->
+
+      </div>
+    </div>
+  </div>
+</div>
+<!--Trip Information Panel closed --> 
+
+<!--Flight Details Panel -->
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+
+      <div class="panel panel-default" > 
+        <div class="panel-heading" style="font-family: 'Aref Ruqaa', serif; font-size:20px;">Passenger Details</div>
+        <div class="panel-body">
+          
+          <div class="row">
+          
+           <table class="table table-striped" style="font-family: 'Aref Ruqaa', serif; font-size:14px;">
+            <thead>
+              <tr style="font-size: 20px">
+                <th>First </th>
+                <th>Last </th>
+                <th>Seat Number</th>
+                <th>Ticket Number </th>
+                <th>Class</th>
+               <th>Flight Id </th>
+                <th>Source</th>
+                 <th>Destination</th>
+
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat = "x in mydata1" >
+            <td>{{x.first_name}}</td>
+           <td>{{x.last_name}}</td>
+           <td>{{x.seat_number}}</td>
+           <td>{{x.ticket_id}}</td>
+           <td>{{x.class_name}}</td>
+           <td>{{x.flight_id}}</td>
+           <td>{{x.origin_airport}}</td>
+           <td>{{x.destination_airport}}</td> 
+           </tbody> 
+         </table>
+       </div>   
+       <hr>
+       <!-- Passenger details for Forward Journey closed--> 
+
+
+ </div>
+
+</div>
+
+</div>
+</div>
+</div>
+<!--Flight details Panel closed --> 
+
+
+          <!-- Second Row closed -->
+
+
+        </div>
+        <!--Panel body Closed -->
+
+      </div>
+    </div>
+  </div>
+</div>
+<!--Payment Information Panel closed --> 
+
+
+
+</body>
+</html>

@@ -1,0 +1,804 @@
+  <!DOCTYPE html>
+  <html>
+  <head>
+    <title>Results</title>
+    <!-- Jquery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+
+    <link rel="shortcut icon" href="title.png" type="img/png">
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <!-- For Date pick -->
+    <script src="Result.js"></script>
+    <script src="moment.js"></script>
+    <script type="text/javascript">
+
+    </script>
+    <style type="text/css">
+
+
+
+
+    </style>
+  </head>
+
+  <body ng-app = "mySearchApp" ng-controller ="mySearchController" >
+    
+    <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal" id="modalButton">Open Modal</button>
+    <!-- Modal -->
+      <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog ">
+        
+          <!-- Modal content-->
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+              <h4 class="modal-title">GoAir Message</h4>
+            </div>
+            <div class="modal-body">
+              <p align="center" id = "alertText">Some text in the modal.</p>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal" id="modalButtonClose">Close</button>
+            </div>
+          </div>
+          
+        </div>
+      </div>
+
+      <!-- Modal -->
+
+
+    <!-- Navigation Bar open -->
+
+    <nav class="navbar navbar-inverse">
+      <div class="container-fluid">
+
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="index.html">GoAir</a>
+        </div>
+
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+          <ul class="nav navbar-nav">
+            <li class="active"><a href="index.html">Home <span class="sr-only">(current)</span></a></li>
+            <li><a href="aboutus.html">About US</a></li>
+          </ul>
+
+          <!-- Right side navigation bar -->
+          <form id="signInForm" class="navbar-form navbar-right" role="form">
+
+
+            <button style="display: none;"  id="manageButton" type="button" class="btn btn-info" data-toggle="modal" data-target="#manageModal">Manage Bookings</button>
+
+            <!-- Manage dialog  -->
+
+            <div class="modal fade" id="manageModal" tabindex="-1" role="dialog"  aria-labelledby="basicModal" aria-hidden="true">
+             <div class="modal-dialog">
+              <div class="modal-content">
+
+               <div class="modal-header">
+                 <button type="button"  class="close" data-dismiss="modal" data-backdrop = "static" aria-hidden="true"></button>
+                 <h4 class="modal-title" id="myModalLabel">Manage/Edit your details</h4>
+               </div>
+
+               <div class="modal-body">
+
+                 <!--Panel1 -->
+                 <div class="panel panel-default">
+                   <div class="panel-heading">
+                    Bookings 
+                  </div>
+                  <div class="panel-body">
+                   <a href="Booking.html">Your Bookings</a>
+                 </div>
+               </div>
+
+               <!--Panel 2 -->
+               <div class="panel panel-default">
+                 <div class="panel-heading">
+                   User Support
+                 </div>
+                 <div class="panel-body">
+                   <a href="manageUsers.html">Your Personal details</a>
+                 </div>
+               </div>
+
+             </div>
+             <!--Modal body closed -->
+           </div>
+         </div>
+       </div>
+       <button  id="logOutButton" type="button" class="btn btn-info">Log Out</button>
+
+     </form>
+
+
+
+   </div><!-- /.navbar-collapse -->
+ </div><!-- /.container-fluid -->
+</nav>  
+
+<!-- Navigation bar closed -->
+
+
+
+<!--Search Container open -->
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="panel panel-default">
+        <div class="panel-heading" style=" font-family: 'Aref Ruqaa', serif; font-size:20px; background-color: MintCream;">You Searched for</div>
+        <div class="panel-body">
+          <!--Second Row Start-->
+          <div class="row">
+            <div  style=" font-family: 'Aref Ruqaa', serif; font-size:15px;" class="col-md-2">
+              Type of Journey :<span ng-bind = "type_model" > {{type_model}} </span>
+            </div>
+            <div style=" font-family: 'Aref Ruqaa', serif; font-size:15px;" class="col-md-2">
+             From: <span ng-bind = "departurecity_model"> {{departurecity_model}} </span> to <span ng-bind = "arrivalcity_model"> {{arrivalcity_model}}</span>  
+           </div>  
+           <div style=" font-family: 'Aref Ruqaa', serif; font-size:15px;" class="col-md-2" >
+            Departure Date: <span ng-bind = "departure_date_model" >{{departure_date_model}}</span>  
+          </div>
+
+          <div id="arrivaldate" style=" font-family: 'Aref Ruqaa', serif; font-size:15px;" class="col-md-2">
+            Return Date:<span  ng-bind = "arrival_date_model"> {{arrival_date_model}}</span>  
+          </div>
+          <div  style=" font-family: 'Aref Ruqaa', serif; font-size:15px;" class="col-md-2">
+            Number Of Passengers: <span  ng-bind = "number_of_passengers"> {{number_of_passengers}}</span>  
+          </div>  
+          <div id="arrivaldate" style=" font-family: 'Aref Ruqaa', serif; font-size:15px;" class="col-md-2">
+            Class: <span  ng-bind = "class_model"> {{class_model}}</span>  
+          </div>  
+
+        </div>
+
+        <!--Second Row closed -->
+      </div>
+      <!--Panel body Closed -->
+
+    </div>
+  </div>
+</div>
+</div>
+
+<!--Search Container closed -->
+
+<!--Sort Option -->
+<div class="container" id="sortContainer">
+  <div class="row">
+    <div class="col-md-2">
+      <span style="font-family: 'Libre Baskerville', serif; font-size: 20px;"><b>Flights Found</b></span>
+    </div>
+    <div class="col-md-2 col-md-offset-8">
+      <form>
+        <div class="form-group"">
+          <label class=".control-label">
+            Sort By:  
+          </label>
+          <select class="form-control">
+            <option value="pricel2h">Price(Low to High)</option>
+            <option value="priceh2l">Price(High to Low)</option>
+            <option value="departuree2l">Departure(Early to Late)</option>
+            <option value="departurel2e">Depature(Late to Early)</option>
+            <option value="durationmin">Duration(Min to Max)</option>
+            <option value="duration max">Duration(Max to Min)</option>
+          </select>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!--Forward Journey start -->
+
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+
+      <div class="well" id="forwardHeading">
+        <span style=" font-family: 'Libre Baskerville',serif;font-size:15px;">Forward Journey:</span>
+
+        <span ng-bind = "result_search_departure_forward"><strong> {{result_search_departure_forward}} </strong></span>
+        <span>To</span>
+        <span ng-bind = "result_search_arrival_forward"></strong>{{result_search_arrival_forward}}</strong> </span> 
+      </div>
+      
+      <div ng-repeat = "x in forward_nonstop" class="panel panel-default" > 
+
+        <div class="panel-body">
+          <!--First Row -->
+          <div class="row">
+            <div class="col-md-1">
+              <span>Flight Id : {{x.flight_id}}</span>  
+            </div>  
+          </div>
+
+
+          
+          <div class = "row">
+            <!-- Airline -->
+            <div class="col-md-2">
+              <span style=" font-family: 'Libre Baskerville',serif;font-size:15px;">{{x.aircraft_name}}</span>
+            </div>
+            <!-- Airline Closed -->
+
+            <!-- From -->
+            <div class="col-md-2">
+              <span ng-bind = "result_search_departure_forward" id="resultDepartureCity" style=" font-family: 'Libre Baskerville',serif;font-size:15px;">{{ result_search_departure_forward}}</span> 
+            </div>
+            <!-- From closed -->
+
+            <!--Icon-->
+            <div class="col-md-1">
+              <span class="glyphicon glyphicon-arrow-right"></span> 
+            </div>     
+            <!-- Icon closed -- >
+
+            <!--TO -->
+            <div class="col-md-2">
+              <span ng-bind = "result_search_arrival_forward" id="resultArrivalCity" style=" font-family: 'Libre Baskerville',serif; font-size:15px;"><{{result_search_arrival_forward}}</span> 
+            </div>
+            <!--To closed -->
+
+
+            <!--Price -->
+            <div class="col-md-2 col-md-offset-3">
+              <span style="font-size: 20px;">$</span>
+              <span id="resultPrice" style=" font-family: 'Libre Baskerville',serif; text-align: right; font-size:15px;">
+               <strong> {{x.Total_fare}}</strong></span> 
+             </div>
+             <!--Price closed -->   
+
+             <!--First row closed -->
+           </div>
+
+           <!--Second row start -->
+
+           <div class="row">
+
+            <!--Departure time -->
+            <div class="col-md-2 col-md-offset-2">
+              <span id="resultDepartureTime" style=" font-family: 'Libre Baskerville',serif; font-size:12px;" >{{x.depart_date}}</span>
+              <span>{{x.depart_time}}</span> 
+            </div>
+
+            <!-- Departure Time closed -->
+
+            <!--Arrival time -->
+
+            <div class="col-md-2 col-md-offset-1" >
+              <span  id="resultArrivalTime" style=" font-family: 'Libre Baskerville',serif;font-size:12px;">{{x.arrive_date}}</span>
+              <span>{{x.arrive_time}}</span> 
+            </div>
+            <!--Arrival time closed -->
+
+            <!--Duration -->
+
+            <div class="col-md-2 col-md-offset-1" >  
+              <span id="resultDuration" style=" font-family: 'Libre Baskerville',serif;font-size:12px;" >{{x.duration}}</span>
+            </div>
+
+            <!--Duration closed -->
+          </div>
+          <!--Second row closed -->
+          <br>
+
+          <!--Third row start -->
+
+          <div class = "row">
+           <div class="col-md-2 col-md-offset-10">
+           <input type="radio" name="select_flight_forward" value={{x.flight_id}}>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+
+  <!--Forward Journey with stop panel -->
+
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+
+
+        <div ng-repeat = "x in forward_stop" class="panel panel-default" > 
+
+          <div class="panel-body">
+            <!--First Row -->
+
+            <div class="row">
+              <div class="col-md-1">
+                <span>Flight Id : {{x.flight_id1}}</span>    
+              </div>  
+            </div>
+
+
+            <div class = "row">
+              <!-- Airline -->
+              <div class="col-md-2">
+                <span id="resultAirline" style=" font-family: 'Libre Baskerville',serif;font-size:15px;">{{x.source_to_stop}}</span>
+              </div>
+              <!-- Airline Closed -->
+
+              <!-- From -->
+              <div class="col-md-2">
+                <span ng-bind = "result_search_departure_forward" style=" font-family: 'Libre Baskerville',serif;font-size:15px;">{{result_search_departure_forward}}</span> 
+              </div>
+              <!-- From closed -->
+
+              <!--Icon-->
+              <div class="col-md-1">
+                <span class="glyphicon glyphicon-arrow-right"></span> 
+              </div>     
+              <!-- Icon closed -- >
+
+              <!--TO -->
+              <div class="col-md-2">
+                <span id="resultArrivalCity" style=" font-family: 'Libre Baskerville',serif; font-size:15px;">{{x.stop_airport_city}}</span> 
+              </div>
+              <!--To closed -->
+
+              <!--Price -->
+              <div class="col-md-2 col-md-offset-3">
+                <span style="font-size: 20px;">$</span>
+                <span id="resultPrice" style=" font-family: 'Libre Baskerville',serif; text-align: right; font-size:15px;"><strong>{{x.Total_fare}}</strong></span> 
+              </div>
+              <!--Price closed -->   
+
+              <!--First row closed -->
+            </div>
+
+            <!--Second row start -->
+
+            <div class="row">
+
+              <!--Departure time -->
+              <div class="col-md-2 col-md-offset-2">
+                <span id="resultDepartureTime" style=" font-family: 'Libre Baskerville',serif; font-size:12px;" >{{x.depart_date}}</span>
+                <span>{{x.depart_time}}</span> 
+              </div>
+
+              <!-- Departure Time closed -->
+
+              <!--Arrival time -->
+
+              <div class="col-md-2 col-md-offset-1" >
+                <span  id="resultArrivalTime" style=" font-family: 'Libre Baskerville',serif;font-size:12px;"> {{x.stop_airport_arrival_date}}</span>
+                <span>{{x.stop_airport_arrival_time}}</span>
+              </div>
+              <!--Arrival time closed -->
+
+              <!--Duration -->
+
+              <div class="col-md-2 col-md-offset-1" >  
+                <span id="resultDuration" style=" font-family: 'Libre Baskerville',serif;font-size:12px;">{{x.flight_1_duration}} </span>
+              </div>
+
+              <!--Duration closed -->
+            </div>
+            <!--Second row closed -->
+            <br>
+
+            <!--Third row start -->
+
+            <div class = "row">
+             <div class="col-md-2 col-md-offset-10">
+              <input type="radio" name="select_flight_forward" value={{x.flight_id1}}#{{x.flight_id2}}>
+            </div>
+
+          </div>
+          <!-- Third row closed -->
+          <hr>
+          <!--First main row closed -->
+
+          <!--Layover Time -->
+          <div class = "row">
+            <!-- Airline -->
+            <div class="col-md-2 col-md-offset-5">
+              <span id="layover time" style=" font-family: 'Libre Baskerville',serif;font-size:15px;">Layover</span>
+              <span>{{x.layover}}</span>
+            </div>
+          </div>
+          <hr>
+          <!--Layover time -->
+
+
+          <!--Second main row started -->
+          <!--From layover to destination -->
+
+          <div class="row">
+            <div class="col-md-1">
+              <span>Flight Id : {{x.flight_id2}}</span>    
+            </div>  
+          </div>
+          <!--First Row -->
+          <div class = "row">
+            <!-- Airline -->
+            <div class="col-md-2">
+              <span id="resultAirline" style=" font-family: 'Libre Baskerville',serif;font-size:15px;">{{x.stop_to_destination}}</span>
+            </div>
+            <!-- Airline Closed -->
+
+            <!-- From -->
+            <div class="col-md-2">
+              <span id="resultDepartureCity" style=" font-family: 'Libre Baskerville',serif;font-size:15px;">{{x.stop_airport_city}}
+              </span> 
+            </div>
+            <!-- From closed -->
+
+            <!--Icon-->
+            <div class="col-md-1">
+              <span class="glyphicon glyphicon-arrow-right"></span> 
+            </div>     
+            <!-- Icon closed -- >
+
+            <!--TO -->
+            <div class="col-md-2">
+              <span ng-bind = "result_search_arrival_forward" style=" font-family: 'Libre Baskerville',serif; font-size:15px;">{{result_search_arrival_forward}}</span> 
+            </div>
+            <!--To closed -->
+
+            <!--First row closed -->
+          </div>
+
+          <!--Second row start -->
+
+          <div class="row">
+
+            <!--Departure time -->
+            <div class="col-md-2 col-md-offset-2">
+              <span id="resultDepartureTime" style=" font-family: 'Libre Baskerville',serif; font-size:12px;" >{{x.stop_airport_departure_date}}</span>
+              <span>{{x.stop_airport_departure_time}}</span> 
+            </div>
+
+            <!-- Departure Time closed -->
+
+            <!--Arrival time -->
+
+            <div class="col-md-2 col-md-offset-1" >
+              <span  id="resultArrivalTime" style=" font-family: 'Libre Baskerville',serif;font-size:12px;">{{x.arrive_date}}</span>
+              <span>{{x.arrive_time}}</span>
+            </div>
+            <!--Arrival time closed -->
+
+            <!--Duration -->
+
+            <div class="col-md-2 col-md-offset-1" >  
+              <span id="resultDuration" style=" font-family: 'Libre Baskerville',serif;font-size:12px;" >{{x.duration}}</span>
+            </div>
+
+            <!--Duration closed -->
+          </div>
+          <!--Second row closed -->
+          <br>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!--Forward Journey Closed -->
+
+
+<!--Return Journey Start -->
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+
+      <div class="well" id="returnHeading">
+        <span style=" font-family: 'Libre Baskerville',serif;font-size:15px;">Return Journey:</span> 
+        <span ng-bind = result_search_departure_return></span>
+        <span>To </span>
+        <span ng-bind = result_search_arrival_return></span> 
+      </div>
+
+      <div ng-repeat = " x in return_nonstop" class="panel panel-default" > 
+        <div class="panel-body">
+
+          <div class="row">
+            <div class="col-md-1">
+              <span>Flight Id : {{x.flight_id}}</span>    
+            </div>  
+          </div>
+
+          <!--First Row -->
+          <div class = "row">
+            <!-- Airline -->
+            <div class="col-md-2">
+              <span id="resultAirline" style=" font-family: 'Libre Baskerville',serif;font-size:15px;">{{x.aircraft_name}}</span>
+            </div>
+            <!-- Airline Closed -->
+
+            <!-- From -->
+            <div class="col-md-2">
+              <span ng-bind = "result_search_arrival_forward" style=" font-family: 'Libre Baskerville',serif;font-size:15px;">{{result_search_arrival_forward}}</span> 
+            </div>
+            <!-- From closed -->
+
+            <!--Icon-->
+            <div class="col-md-1">
+              <span class="glyphicon glyphicon-arrow-right"></span> 
+            </div>     
+            <!-- Icon closed -- >
+
+            <!--TO -->
+            <div class="col-md-2">
+              <span ng-bind = "result_search_departure_forward" id="resultArrivalCity" style=" font-family: 'Libre Baskerville',serif; font-size:15px;">{{result_search_departure_forward}}</span> 
+            </div>
+            <!--To closed -->
+
+            <!--Price -->
+            <div class="col-md-2 col-md-offset-3">
+              <span style="font-size: 20px;">$</span>
+              <span id="resultPrice" style=" font-family: 'Libre Baskerville',serif; text-align: right; font-size:15px;"><strong>{{x.Total_fare}}</strong> </span> 
+            </div>
+            <!--Price closed -->   
+
+            <!--First row closed -->
+          </div>
+
+          <!--Second row start -->
+
+          <div class="row">
+
+            <!--Departure time -->
+            <div class="col-md-2 col-md-offset-2">
+              <span id="resultDepartureTime" style=" font-family: 'Libre Baskerville',serif; font-size:12px;" >{{x.depart_date}}</span>
+              <span>{{x.depart_time}}</span> 
+            </div>
+
+            <!-- Departure Time closed -->
+
+            <!--Arrival time -->
+
+            <div class="col-md-2 col-md-offset-1" >
+              <span  id="resultArrivalTime" style=" font-family: 'Libre Baskerville',serif;font-size:12px;"> {{x.arrive_date}}</span>
+              <span>{{x.arrive_time}}</span>
+            </div>
+            <!--Arrival time closed -->
+
+            <!--Duration -->
+
+            <div class="col-md-2 col-md-offset-1" >  
+              <span id="resultDuration" style=" font-family: 'Libre Baskerville',serif;font-size:12px;" >{{x.duration}}</span>
+            </div>
+
+            <!--Duration closed -->
+          </div>
+          <!--Second row closed -->
+          <br>
+
+          <!--Third row start -->
+
+          <div class = "row">
+           <div class="col-md-2 col-md-offset-10">
+            <input type="radio" name = "select_flight_return" value={{x.flight_id}}>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div> 
+  </div>
+
+
+
+
+  <!--Retrun with stop -->
+  <div class="container" id="returnjourney_container">
+    <div class="row">
+      <div class="col-md-12">
+
+        <div ng-repeat = "x in return_stop" class="panel panel-default" > 
+          <div class="panel-body">
+            <div class="row">
+              <div class="col-md-1">
+                <span>Flight Id : {{x.flight_id1}}</span>    
+              </div>  
+            </div>
+
+            <!--First Row -->
+            <div class = "row">
+              <!-- Airline -->
+              <div class="col-md-2">
+                <span id="resultAirline" style=" font-family: 'Libre Baskerville',serif;font-size:15px;">{{x.source_to_stop}}</span>
+              </div>
+              <!-- Airline Closed -->
+
+              <!-- From -->
+              <div class="col-md-2">
+                <span ng-bind= "result_search_arrival_forward" style=" font-family: 'Libre Baskerville',serif;font-size:15px;">{{result_search_arrival_forward}}</span> 
+              </div>
+              <!-- From closed -->
+
+              <!--Icon-->
+              <div class="col-md-1">
+                <span class="glyphicon glyphicon-arrow-right"></span> 
+              </div>     
+              <!-- Icon closed -- >
+
+              <!--TO -->
+              <div class="col-md-2">
+                <span id="resultArrivalCity" style=" font-family: 'Libre Baskerville',serif; font-size:15px;">{{x.stop_airport_city}}</span> 
+              </div>
+              <!--To closed -->
+
+              <!--Price -->
+              <div class="col-md-2 col-md-offset-3">
+                <span style="font-size: 20px;">$</span>
+                <span id="resultPrice" style=" font-family: 'Libre Baskerville',serif; text-align: right; font-size:15px;"><strong>{{x.Total_fare}}</strong></span> 
+              </div>
+              <!--Price closed -->   
+
+              <!--First row closed -->
+            </div>
+
+
+            <!--Second row start -->
+
+            <div class="row">
+
+              <!--Departure time -->
+              <div class="col-md-2 col-md-offset-2">
+                <span id="resultDepartureTime" style=" font-family: 'Libre Baskerville',serif; font-size:12px;" >{{x.depart_date}}</span>
+                <span>{{x.depart_time}}</span> 
+              </div>
+
+              <!-- Departure Time closed -->
+
+              <!--Arrival time -->
+
+              <div class="col-md-2 col-md-offset-1" >
+                <span  id="resultArrivalTime" style=" font-family: 'Libre Baskerville',serif;font-size:12px;"> {{x.stop_airport_arrival_date}}</span>
+                <span>{{x.stop_airport_arrival_time}}</span>
+              </div>
+              <!--Arrival time closed -->
+
+              <!--Duration -->
+
+              <div class="col-md-2 col-md-offset-1" >  
+                <span id="resultDuration" style=" font-family: 'Libre Baskerville',serif;font-size:12px;" >{{x.flight_1_duration}}</span>
+              </div>
+
+              <!--Duration closed -->
+            </div>
+
+            <!--Second row closed -->
+            <div class = "row">
+             <div class="col-md-2 col-md-offset-10">
+              <input type="radio" name="select_flight_return" value={{x.flight_id1}}#{{x.flight_id2}} >
+            </div>
+
+          </div>
+          <!-- Third row closed -->
+          <hr>
+          <!--First main row closed -->
+
+          <!--Layover Time -->
+          <div class = "row">
+            <!-- Airline -->
+            <div class="col-md-2 col-md-offset-5">
+              <span id="layover time" style=" font-family: 'Libre Baskerville',serif;font-size:15px;">Layover</span>
+              <span>{{x.layover}}</span>
+            </div>
+          </div>
+          <hr>
+          <!--Layover time -->
+
+
+          <!--From layover to destination -->
+
+          <!--First Row -->
+          <div class="row">
+            <div class="col-md-1">
+              <span>Flight Id : {{x.flight_id2}}</span>    
+            </div>  
+          </div>
+          <div class = "row">
+            <!-- Airline -->
+            <div class="col-md-2">
+              <span id="resultAirline" style=" font-family: 'Libre Baskerville',serif;font-size:15px;">{{x.stop_to_destination}}</span>
+            </div>
+            <!-- Airline Closed -->
+
+            <!-- From -->
+            <div class="col-md-2">
+              <span id="resultDepartureCity" style=" font-family: 'Libre Baskerville',serif;font-size:15px;">{{x.stop_airport_city}}</span> 
+            </div>
+            <!-- From closed -->
+
+            <!--Icon-->
+            <div class="col-md-1">
+              <span class="glyphicon glyphicon-arrow-right"></span> 
+            </div>     
+            <!-- Icon closed -- >
+
+            <!--TO -->
+            <div class="col-md-2">
+              <span ng-bind = "result_search_departure_forward" style=" font-family: 'Libre Baskerville',serif; font-size:15px;">{{result_search_departure_forward}}</span> 
+            </div>
+            <!--To closed -->
+
+            <!--First row closed -->
+          </div>
+
+          <!--Second row start -->
+
+          <div class="row">
+
+            <!--Departure time -->
+            <div class="col-md-2 col-md-offset-2">
+              <span id="resultDepartureTime" style=" font-family: 'Libre Baskerville',serif; font-size:12px;">{{x.stop_airport_departure_date}}</span>
+              <span>{{x.stop_airport_departure_time}}</span> 
+            </div>
+
+            <!-- Departure Time closed -->
+
+            <!--Arrival time -->
+
+            <div class="col-md-2 col-md-offset-1" >
+              <span  id="resultArrivalTime" style=" font-family: 'Libre Baskerville',serif;font-size:12px;">{{x.arrive_date}}</span>
+              <span>{{x.arrive_time}}</span>
+            </div>
+            <!--Arrival time closed -->
+
+            <!--Duration -->
+
+            <div class="col-md-2 col-md-offset-1" >  
+              <span id="resultDuration" style=" font-family: 'Libre Baskerville',serif;font-size:12px;" >{{x.flight_2_duration}}</span>
+            </div>
+
+            <!--Duration closed -->
+          </div>
+          <!--Second row closed -->
+          <br>
+        </div>
+
+      </div> 
+    </div>
+    <div class="row">
+      <div class="col-md-12 col-md-offset-10">
+        <button ng-click = "searchSubmit()" type="button" class="btn btn-info btn-lg" data-dismiss="modal" id = "submitButton">Submit</button>
+        <button  type="button" class="btn btn-info btn-lg" data-dismiss="modal" id = "backButton">Back</button>
+      </div>
+    </div>
+   
+    <br>
+    <br>
+
+  </div>
+</div>
+</div>
+<!-- Return Journey Details Closed -- >
+
+
+
+
+</body>
+</html>

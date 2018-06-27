@@ -1,0 +1,597 @@
+<html>
+<head>
+  <title>Confirm Your Booking</title>
+  <!-- Jquery -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+
+  <link rel="shortcut icon" href="title.png" type="img/png">
+
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+  <!-- Optional theme -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+  <!-- Latest compiled and minified JavaScript -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <!-- For Date pick -->
+  <link href="https://fonts.googleapis.com/css?family=Libre+Baskerville" rel="stylesheet">
+  <script src="confirmBooking.js"></script>
+  <script src="moment.js"></script>
+
+  <script type="text/javascript">
+
+  </script>
+  <style type="text/css">
+
+
+
+  </style>
+</head>
+
+<body ng-app = "myconfirmapp" ng-controller = "myconfirmController">
+  <!-- Navigation Bar open -->
+<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal" id="modalButton">Open Modal</button>
+<!-- Modal -->
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog ">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">GoAir Message</h4>
+        </div>
+        <div class="modal-body">
+          <p align="center" id = "alertText">Some text in the modal.</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+
+  <!-- Modal -->
+
+  <nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+
+      <!-- Brand and toggle get grouped for better mobile display -->
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="index.html">GoAir</a>
+      </div>
+
+
+      <!-- Collect the nav links, forms, and other content for toggling -->
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav">
+          <li class="active"><a href="index.html">Home <span class="sr-only">(current)</span></a></li>
+          <li><a href="aboutus.html">About US</a></li>
+        </ul>
+
+        <!-- Right side navigation bar -->
+        <form id="signInForm" class="navbar-form navbar-right" role="form">
+
+
+          <button style="display: none;"  id="manageButton" type="button" class="btn btn-info" data-toggle="modal" data-target="#manageModal">Manage Bookings</button>
+
+          <!-- Manage dialog  -->
+
+          <div class="modal fade" id="manageModal" tabindex="-1" role="dialog"  aria-labelledby="basicModal" aria-hidden="true">
+           <div class="modal-dialog">
+            <div class="modal-content">
+
+             <div class="modal-header">
+               <button type="button"  class="close" data-dismiss="modal" data-backdrop = "static" aria-hidden="true"></button>
+               <h4 class="modal-title" id="myModalLabel">Manage/Edit your details</h4>
+             </div>
+
+             <div class="modal-body">
+
+               <!--Panel1 -->
+               <div class="panel panel-default">
+                 <div class="panel-heading">
+                  Bookings 
+                </div>
+                <div class="panel-body">
+                 <a href="Booking.html">Your Bookings</a>
+               </div>
+             </div>
+
+             <!--Panel 2 -->
+             <div class="panel panel-default">
+               <div class="panel-heading">
+                 User Support
+               </div>
+               <div class="panel-body">
+                 <a href="manageUsers.html">Your Personal details</a>
+               </div>
+             </div>
+
+           </div>
+           <!--Modal body closed -->
+         </div>
+       </div>
+     </div>
+     <button  id="logOutButton" type="button" class="btn btn-info">Log Out</button>
+
+   </form>
+
+
+
+ </div><!-- /.navbar-collapse -->
+</div><!-- /.container-fluid -->
+</nav>  
+
+<!-- Navigation bar closed -->
+
+
+
+
+
+<!--Flight Details Panel -->
+<div class="container">
+
+  <div class="row">
+    <div class="col-md-12">
+      <div class="well"> 
+        <h5 style="font-family: 'Aref Ruqaa', serif; font-size:25px;"> <strong>Passenger Details </strong></h5>
+      </div> 
+    </div>  
+  </div>
+  
+  <div class="row" style="display: none;">
+    <div class="col-md-12">
+
+      <div class="panel panel-default" > 
+        <div class="panel-heading" style="font-family: 'Aref Ruqaa', serif; font-size:20px;">
+          <span>Trip Information</span>
+        </div>
+        <div class="panel-body">
+          <h5 style="font-family: 'Aref Ruqaa', serif; font-size:25px;"><strong>Forward Journey</strong></h5>
+
+          <!--*************************************Forward Journey details start***********************************************-->  
+
+          <!--First Row start -->
+          <div class="row">
+            <div class="col-md-6">
+              <span ng-bind= "departue_city_model" style="font-family: 'Aref Ruqaa', serif; font-size:20px;"> <strong>{{departue_city_model}}</strong></span>
+              <span style="font-family: 'Aref Ruqaa', serif; font-size:20px;">to</span>
+              <span ng-bind = "arrival_city_model" style="font-family: 'Aref Ruqaa', serif; font-size:20px;"><strong>{{arrival_city_model}}</strong></span>  
+            </div>  
+          </div>
+          <!--First Row closed -->
+          <br>
+          <br>
+
+          <!--Second Row -->
+          <div class = "row">
+            <!-- From -->
+            <div class="col-md-3">
+              <span ng-bind= "departue_city_model" style="font-family: 'Aref Ruqaa', serif; font-size:20px;">{{departue_city_model}}</span> 
+            </div>
+            <!-- From closed -->
+
+            <!--Icon-->
+            <div class="col-md-1">
+              <span class="glyphicon glyphicon-arrow-right"></span> 
+            </div>     
+            <!-- Icon closed -- >
+
+            <!--TO -->
+            <div class="col-md-3">
+              <span style="font-family: 'Aref Ruqaa', serif; font-size:20px;">Pune</span> 
+            </div>
+            <!--To closed -->
+            <!--Duration -->
+            <div class="col-md-2 ">
+              <span style="font-family: 'Aref Ruqaa', serif; font-size:20px;">Duration</span> 
+            </div>
+            
+            <!--Duration Closed -->
+            <!--Flight Number -->
+            <div class="col-md-2 col-md-offset-1">
+              <span style="font-family: 'Aref Ruqaa', serif; font-size:20px;">Flight Ey-103</span> 
+            </div>
+            <!--Flight Number -->   
+
+            <!--Second row closed -->
+          </div>
+
+          <!--Third row start -->
+
+          <div class="row">
+
+            <!--Departure time -->
+            <div class="col-md-2">
+              <span style="font-family: 'Aref Ruqaa', serif; font-size:14px;">09Dec,19:00</span> 
+            </div>
+
+            <!-- Departure Time closed -->
+
+            <!--Arrival time -->
+
+            <div class="col-md-2 col-md-offset-2" >
+              <span style="font-family: 'Aref Ruqaa', serif; font-size:14px;">09Dec,20:00</span>
+            </div>
+            <!--Arrival time closed -->
+
+            <!--Duration -->
+
+            <div class="col-md-2 col-md-offset-1" >  
+              <span style="font-family: 'Aref Ruqaa', serif; font-size:14px;" >1hr 30 min(non stop)</span>
+            </div>
+
+            <!--Duration closed -->
+
+            <!--Airline Name -->
+
+            <div class="col-md-2 col-md-offset-1">  
+              <span style="font-family: 'Aref Ruqaa', serif; font-size:14px;" >Etihad Airways</span>
+            </div>
+
+            <!--Airline name closed -->
+          </div>
+          <!--Third row closed -->
+          <br>
+          <br>
+
+
+          <!--Fourth Row Start -->
+          <div class = "row">
+            <!-- From -->
+            <div class="col-md-3">
+              <span style="font-family: 'Aref Ruqaa', serif; font-size:20px;">London</span> 
+            </div>
+            <!-- From closed -->
+
+            <!--Icon-->
+            <div class="col-md-1">
+              <span class="glyphicon glyphicon-arrow-right"></span> 
+            </div>     
+            <!-- Icon closed -- >
+
+            <!--TO -->
+            <div class="col-md-3">
+              <span ng-bind = "arrival_city_model" style="font-family: 'Aref Ruqaa', serif; font-size:20px;">{{arrival_city_model}}</span> 
+            </div>
+            <!--To closed -->
+            <!--Duration -->
+            <div class="col-md-2 ">
+              <span style="font-family: 'Aref Ruqaa', serif; font-size:20px;">Duration</span> 
+            </div>
+            
+            <!--Duration Closed -->
+            <!--Flight Number -->
+            <div class="col-md-2 col-md-offset-1">
+              <span style="font-family: 'Aref Ruqaa', serif; font-size:20px;">Flight Ey-103</span> 
+            </div>
+            <!--Flight Number -->   
+
+            <!--Fourth row closed -->
+          </div>
+
+
+          <!--Fifth row start -->
+
+          <div class="row">
+
+            <!--Departure time -->
+            <div class="col-md-2">
+              <span style="font-family: 'Aref Ruqaa', serif; font-size:14px;">09Dec,19:00</span> 
+            </div>
+
+            <!-- Departure Time closed -->
+
+            <!--Arrival time -->
+
+            <div class="col-md-2 col-md-offset-2" >
+              <span style="font-family: 'Aref Ruqaa', serif; font-size:14px;">09Dec,20:00</span>
+            </div>
+            <!--Arrival time closed -->
+
+            <!--Duration -->
+
+            <div class="col-md-2 col-md-offset-1" >  
+              <span style="font-family: 'Aref Ruqaa', serif; font-size:14px;" >1hr 30 min(non stop)</span>
+            </div>
+
+            <!--Duration closed -->
+
+            <!--Airline Name -->
+
+            <div class="col-md-2 col-md-offset-1">  
+              <span style="font-family: 'Aref Ruqaa', serif; font-size:14px;" >Etihad Airways</span>
+            </div>
+
+            <!--Airline name closed -->
+          </div>
+          <!--Fifth row closed -->
+          <hr>
+
+          <!--*************************************Return Jouurney Details************************** -->
+
+          <!--Return Journey details Start -->
+          <h5 style="font-family: 'Aref Ruqaa', serif; font-size:25px;"><strong>Return Journey</strong></h5>
+
+          <!--First Row start -->
+          <div class="row">
+            <div class="col-md-6">
+              <span ng-bind= "arrival_city_model" style="font-family: 'Aref Ruqaa', serif; font-size:20px;"> <strong>{{arrival_city_model}}</strong></span>
+              <span style="font-family: 'Aref Ruqaa', serif; font-size:20px;">to</span>
+              <span ng-bind = " departue_city_model " style="font-family: 'Aref Ruqaa', serif; font-size:20px;"><strong>{{departue_city_model}}</strong></span>  
+            </div>   
+          </div>
+          <!--First Row closed -->
+          <br>
+          <br>
+
+          <!--Second Row -->
+          <div class = "row">
+            <!-- From -->
+            <div class="col-md-3">
+              <span ng-bind = "arrival_city_model" style="font-family: 'Aref Ruqaa', serif; font-size:20px;">{{arrival_city_model}}</span> 
+            </div>
+            <!-- From closed -->
+
+            <!--Icon-->
+            <div class="col-md-1">
+              <span class="glyphicon glyphicon-arrow-right"></span> 
+            </div>     
+            <!-- Icon closed -- >
+
+            <!--TO -->
+            <div class="col-md-3">
+              <span style="font-family: 'Aref Ruqaa', serif; font-size:20px;">Pune</span> 
+            </div>
+            <!--To closed -->
+            <!--Duration -->
+            <div class="col-md-2 ">
+              <span style="font-family: 'Aref Ruqaa', serif; font-size:20px;">Duration</span> 
+            </div>
+
+            <!--Duration Closed -->
+            <!--Flight Number -->
+            <div class="col-md-2 col-md-offset-1">
+              <span style="font-family: 'Aref Ruqaa', serif; font-size:20px;">Flight Ey-103</span> 
+            </div>
+            <!--Flight Number -->   
+
+            <!--Second row closed -->
+          </div>
+
+          <!--Third row start -->
+
+          <div class="row">
+
+            <!--Departure time -->
+            <div class="col-md-2">
+              <span style="font-family: 'Aref Ruqaa', serif; font-size:14px;">09Dec,19:00</span> 
+            </div>
+
+            <!-- Departure Time closed -->
+
+            <!--Arrival time -->
+
+            <div class="col-md-2 col-md-offset-2" >
+              <span style="font-family: 'Aref Ruqaa', serif; font-size:14px;">09Dec,20:00</span>
+            </div>
+            <!--Arrival time closed -->
+
+            <!--Duration -->
+
+            <div class="col-md-2 col-md-offset-1" >  
+              <span style="font-family: 'Aref Ruqaa', serif; font-size:14px;" >1hr 30 min(non stop)</span>
+            </div>
+
+            <!--Duration closed -->
+
+            <!--Airline Name -->
+
+            <div class="col-md-2 col-md-offset-1">  
+              <span style="font-family: 'Aref Ruqaa', serif; font-size:14px;" >Etihad Airways</span>
+            </div>
+
+            <!--Airline name closed -->
+          </div>
+          <!--Third row closed -->
+          <br>
+          <br>
+
+
+          <!--Fourth Row Start -->
+          <div class = "row">
+            <!-- From -->
+            <div class="col-md-3">
+              <span style="font-family: 'Aref Ruqaa', serif; font-size:20px;">Pune</span> 
+            </div>
+            <!-- From closed -->
+
+            <!--Icon-->
+            <div class="col-md-1">
+              <span class="glyphicon glyphicon-arrow-right"></span> 
+            </div>     
+            <!-- Icon closed -- >
+
+            <!--TO -->
+            <div class="col-md-3">
+              <span ng-bind = "departue_city_model" style="font-family: 'Aref Ruqaa', serif; font-size:20px;">{{departue_city_model}}</span> 
+            </div>
+            <!--To closed -->
+            <!--Duration -->
+            <div class="col-md-2 ">
+              <span style="font-family: 'Aref Ruqaa', serif; font-size:20px;">Duration</span> 
+            </div>
+
+            <!--Duration Closed -->
+            <!--Flight Number -->
+            <div class="col-md-2 col-md-offset-1">
+              <span style="font-family: 'Aref Ruqaa', serif; font-size:20px;">Flight Ey-103</span> 
+            </div>
+            <!--Flight Number -->   
+
+            <!--Fourth row closed -->
+          </div>
+
+
+          <!--Fifth row start -->
+
+          <div class="row">
+
+            <!--Departure time -->
+            <div class="col-md-2">
+              <span style="font-family: 'Aref Ruqaa', serif; font-size:14px;">09Dec,19:00</span> 
+            </div>
+
+            <!-- Departure Time closed -->
+
+            <!--Arrival time -->
+
+            <div class="col-md-2 col-md-offset-2" >
+              <span style="font-family: 'Aref Ruqaa', serif; font-size:14px;">09Dec,20:00</span>
+            </div>
+            <!--Arrival time closed -->
+
+            <!--Duration -->
+
+            <div class="col-md-2 col-md-offset-1" >  
+              <span style="font-family: 'Aref Ruqaa', serif; font-size:14px;" >1hr 30 min(non stop)</span>
+            </div>
+
+            <!--Duration closed -->
+
+            <!--Airline Name -->
+
+            <div class="col-md-2 col-md-offset-1">  
+              <span style="font-family: 'Aref Ruqaa', serif; font-size:14px;" >Etihad Airways</span>
+            </div>
+
+            <!--Airline name closed -->
+          </div>
+          <!--Fifth row closed -->
+          <br>
+          <br>
+          <!--Return Journey details closed -->
+          <hr>   
+          <!-- Sixth row closed -->  
+
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+  
+  <div class="row">
+   <div class="col-md-12">
+     <div  ng-repeat = "i in passengerFormCount" class="panel panel-default">
+       <div  class="panel-heading">
+         <span>Please Fill Passenger Details No. {{i}}</span>
+       </div>
+       <div  class="panel-body" >
+         <form class ="passengerDetailForm" id ={{i}}>
+          <!--First Name Input -->
+          <div class="row">
+            <div class="col-md-4">
+              <div class="form-group">
+                <input type="text" name="first_name" id="first_name" class="form-control input-sm" placeholder="First Name" ng-model="fields.first_name" required>
+              </div>
+            </div>
+
+            <div class="col-md-3">
+              <div class="form-group">
+                <input type="text" name="middle_name" id="middle_name" class="form-control input-sm" placeholder="Middle Name" ng-model="fields.middle_name">
+              </div>
+            </div>
+
+            <div class="col-md-3">
+              <div class="form-group">
+                <input type="text" name="last_name" id="last_name" class="form-control input-sm" placeholder="Last Name" ng-model="fields.last_name" required>
+              </div>
+            </div>
+
+          </div>
+          <!--First row closed -->
+
+          <div class="row">
+            <div class="col-md-6">
+              <!-- Email & Password input -->
+              <div class="form-group">
+                <input type="email" name="email" id="email" class="form-control input-sm" placeholder="Email Address" ng-model="fields.email" required>
+              </div>
+            </div>
+          </div>
+          <!--Second row closed -->
+
+
+
+          <!--Third row closed-->
+
+
+          <!-- Gender Input -->
+          <div class="row">
+            <div class="col-md-2">
+              <div class="form-group">
+                <input class="form-check-input"  type="radio" name="gender" value="M" ng-model="fields.gender" ng-checked="true">
+                <label class=".control-label" style="font-family: 'Aref Ruqaa', serif; font-size:20px;" >Male</label>
+              </div>
+            </div>
+
+            <div class="col-md-2">
+              <div class="form-group">
+                <input class="form-check-input" type="radio" name="gender" value="F" ng-model="fields.gender">
+                <label class=".control-label" style="font-family: 'Aref Ruqaa', serif; font-size:20px;">Female</label>
+              </div>
+            </div>
+          </div>
+          <!--Fourth row closed -->
+
+
+          <!--Phone Number Input -->
+          <div class="row">
+            <div class="col-md-4">
+              <div class="form-group">
+                <input type="text" name="phone_primary" id="phone_primary" class="form-control input-sm" placeholder="Phone Number" ng-model="fields.phone_primary" required> 
+              </div>
+            </div>
+          </div>
+          <!--Fifth row closed -->
+          <br>
+
+          <!--Date of Birth Input -->
+          <div class="row">
+            <div class="col-md-4">
+              <div class="form-group">
+                <input type="text" name="age" id="age" class="form-control input-sm" placeholder="Age" ng-model="fields.age"> 
+              </div> 
+            </div>
+          </div>  
+          <!--Sixth row closed -->
+          <br>
+
+        </form>
+
+      </div>
+      
+    </div> 
+    <div class="row">
+        <div class="col-md-3 col-md-offset-6">
+          <input type="submit" ng-click = "submittransaction()" value="Submit" class="btn btn-info btn-block" >
+        </div>
+      </div>
+  </div>
+</div>
+<!--Flight details Panel closed --> 
+
+</body>
+</html>

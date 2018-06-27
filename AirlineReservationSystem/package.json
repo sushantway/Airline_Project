@@ -1,0 +1,21 @@
+{
+  "name": "airlinereservationsystem",
+  "version": "1.0.0",
+  "description": "Airline reservation System",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Deepanjan Bhattacharyya",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.15.2",
+    "bootstrap": "^3.3.7",
+    "express": "^4.14.0",
+    "express-mailer": "^0.3.1",
+    "mysql": "^2.12.0",
+    "mysql-model": "0.0.2",
+    "nodemailer": "^2.6.4",
+    "simplecrypt": "^0.1.0"
+  }
+}
