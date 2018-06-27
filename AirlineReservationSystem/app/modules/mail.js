@@ -5,8 +5,8 @@ var smtpConfig = {
     port: 465,
     secure: true, // use SSL
     auth: {
-        user: 'deepanjandeveloper@gmail.com',
-        pass: 'twistdev90'
+        user: '',
+        pass: ''
     }
 };
 
@@ -16,8 +16,8 @@ var poolConfig = {
     port: 465,
     secure: true, // use SSL
     auth: {
-        user: 'deepanjandeveloper@gmail.com',
-        pass: 'twistdev90'
+        user: '',
+        pass: ''
     }
 };
 
